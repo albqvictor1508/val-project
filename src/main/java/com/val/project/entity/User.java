@@ -18,7 +18,9 @@ public class User implements UserDetails {
     @Email
     @Column(unique = true, length = 120, nullable = false)
     private String email;
-
+    @NotBlank
+    @Column(length = 80, nullable = false, unique = true)
+    private String username;
     @NotBlank
     @Column(length = 100, nullable = false)
     private String password;
@@ -29,6 +31,10 @@ public class User implements UserDetails {
     @NotBlank
     @Column(length = 80, nullable = false)
     private String uf;
+    @NotBlank
+    @Column(length = 80, nullable = false)
+    private String street;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
