@@ -24,7 +24,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Email
     @Column(unique = true, length = 120, nullable = false)
     private String email;
@@ -38,6 +37,8 @@ public class User implements UserDetails {
     @NotBlank
     @Column(length = 11, nullable = false, unique = true)
     private String cpf;
+    @OneToMany(mappedBy = "user")
+    private List<Address> addresses;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
