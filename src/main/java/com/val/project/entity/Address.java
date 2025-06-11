@@ -34,6 +34,4 @@ public class Address {
     private Integer number;
     @Column(name = "is_default", nullable = false)
     private boolean isDefault;
-
-
 }
