@@ -4,6 +4,6 @@ import com.val.project.repository.ProductCartRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductCart {
+public class ProductCartService {
     private ProductCartRepository productCartRepository;
 }
