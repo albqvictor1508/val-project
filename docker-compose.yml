@@ -1,0 +1,12 @@
+services:
+  val-project-pg:
+    image: postgres
+    ports:
+      - "6005:5432"
+    volumes:
+      - val-project-pg:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+volumes:
+  val-project-pg:
