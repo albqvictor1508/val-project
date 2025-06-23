@@ -27,5 +27,7 @@ public class Product {
   private String description;
   @Column(nullable = false)
   private Double price;
+  @Column(nullable = false)
+  private String category;
   // adicionar uma lista de fotos do produto
 }
