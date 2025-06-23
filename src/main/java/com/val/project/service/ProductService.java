@@ -15,4 +15,15 @@ public class ProductService {
   public Product findById(Long productId) {
     return productRepository.findById(productId).orElse(null);
   }
+
+  public Product update(Product p) {
+    Product existingProduct = findById(p.getId());
+    if (existingProduct == null)
+      throw new RuntimeException("Product not exits");
+
+    existingProduct.setName(p.getName());
+    existingProduct.setDescription(p.getDescription());
+    existingProduct.setPrice(p.getPrice());
+    return save(existingProduct);
+  }
 }

@@ -1,5 +1,7 @@
 package com.val.project.entity;
 
+import org.hibernate.engine.jdbc.cursor.internal.FallbackRefCursorSupport;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,15 +15,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(length = 120, nullable = false)
-    private String name;
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private ProductCart cart;
-    @Column(nullable = true)
-    private String description;
-    //adicionar uma lista de fotos do produto
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @Column(length = 120, nullable = false)
+  private String name;
+  @ManyToOne
+  @JoinColumn(name = "cart_id")
+  private ProductCart cart;
+  @Column(nullable = true)
+  private String description;
+  @Column(nullable = false)
+  private Double price;
+  // adicionar uma lista de fotos do produto
 }
