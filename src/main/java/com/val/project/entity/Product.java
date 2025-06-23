@@ -1,7 +1,5 @@
 package com.val.project.entity;
 
-import org.hibernate.engine.jdbc.cursor.internal.FallbackRefCursorSupport;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +28,4 @@ public class Product {
   @Column(nullable = false)
   private String category;
   // adicionar uma lista de fotos do produto, ou pode ser uma tabela de foto, com
-  // o id do produto e pa
 }
