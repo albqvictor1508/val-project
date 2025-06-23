@@ -24,6 +24,7 @@ public class ProductService {
     existingProduct.setName(p.getName());
     existingProduct.setDescription(p.getDescription());
     existingProduct.setPrice(p.getPrice());
+    existingProduct.setCategory(p.getCategory());
     return save(existingProduct);
   }
 }

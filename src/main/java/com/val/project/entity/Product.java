@@ -29,5 +29,6 @@ public class Product {
   private Double price;
   @Column(nullable = false)
   private String category;
-  // adicionar uma lista de fotos do produto
+  // adicionar uma lista de fotos do produto, ou pode ser uma tabela de foto, com
+  // o id do produto e pa
 }
