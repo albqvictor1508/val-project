@@ -38,6 +38,7 @@ public class ProductCartService {
     cart.getProducts().add(product);
   }
 
+  // TODO: trocar esse Product por um DTO
   public void deleteProduct(Product p) {
     Product product = productService.findById(p.getId());
 

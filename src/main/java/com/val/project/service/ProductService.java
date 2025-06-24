@@ -16,6 +16,10 @@ public class ProductService {
     return productRepository.findById(productId).orElse(null);
   }
 
+  public List<Product> findAll() {
+    return productRepository.findAll();
+  }
+
   public Product update(Product p) {
     Product existingProduct = findById(p.getId());
     if (existingProduct == null)
