@@ -19,7 +19,8 @@ public class ProductCartService {
   }
 
   public ProductCart findById(Long cartId) {
-    return productCartRepository.findById(cartId).orElse(null);
+    return productCartRepository.findById(cartId)
+        .orElseThrow(() -> new RuntimeException("product cart with id %s not exists".formatted(cartId)));
   }
 
   // TODO: trocar esse Product por um DTO

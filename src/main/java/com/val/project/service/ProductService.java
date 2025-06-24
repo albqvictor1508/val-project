@@ -16,7 +16,8 @@ public class ProductService {
   }
 
   public Product findById(Long productId) {
-    return productRepository.findById(productId).orElse(null);
+    return productRepository.findById(productId)
+        .orElseThrow(() -> new RuntimeException("product with id %s not exists".formatted(productId)));
   }
 
   public List<Product> findAll() {

@@ -11,4 +11,9 @@ public class UserService {
   private User save(User u) {
     return userRepository.save(u);
   }
+
+  private User findById(Long userId) {
+    return userRepository.findById(userId)
+        .orElseThrow(() -> new RuntimeException("user with id %s not exists".formatted(userId)));
+  }
 }
