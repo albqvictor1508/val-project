@@ -27,14 +27,8 @@ public class ProductCartService {
   public void addProduct(Product p) {
     Product product = productService.findById(p.getId());
 
-    if (product == null)
-      throw new RuntimeException("product not exists");
-
     final Long cartId = p.getCart().getId();
-    var cart = findById(cartId);
-
-    if (cart == null)
-      throw new RuntimeException("cart not exists");
+    ProductCart cart = findById(cartId);
 
     cart.getProducts().add(product);
   }
