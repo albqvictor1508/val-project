@@ -14,6 +14,10 @@ public class ProductCartService {
   @Autowired
   private ProductService productService;
 
+  public ProductCart save(ProductCart productCart) {
+    return productCartRepository.save(productCart);
+  }
+
   public ProductCart findById(Long cartId) {
     return productCartRepository.findById(cartId).orElse(null);
   }
