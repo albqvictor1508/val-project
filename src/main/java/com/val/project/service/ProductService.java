@@ -20,6 +20,11 @@ public class ProductService {
         .orElseThrow(() -> new RuntimeException("product with id %s not exists".formatted(productId)));
   }
 
+  public List<Product> findByCategory(String category) {
+    return productRepository.findByCategory(category)
+        .orElseThrow(() -> new RuntimeException("this category not exists"));
+  }
+
   public List<Product> findAll() {
     return productRepository.findAll();
   }

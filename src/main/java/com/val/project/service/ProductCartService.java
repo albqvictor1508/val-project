@@ -31,6 +31,7 @@ public class ProductCartService {
     ProductCart cart = findById(cartId);
 
     cart.getProducts().add(product);
+    productCartRepository.save(cart);
   }
 
   // TODO: trocar esse Product por um DTO
@@ -47,5 +48,6 @@ public class ProductCartService {
       throw new RuntimeException("cart not exists");
 
     cart.getProducts().remove(product);
+    productCartRepository.save(cart);
   }
 }
