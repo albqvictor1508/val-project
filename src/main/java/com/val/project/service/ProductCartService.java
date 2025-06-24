@@ -33,4 +33,19 @@ public class ProductCartService {
 
     cart.getProducts().add(product);
   }
+
+  public void deleteProduct(Product p) {
+    Product product = productService.findById(p.getId());
+
+    if (product == null)
+      throw new RuntimeException("product not exists");
+
+    final Long cartId = p.getCart().getId();
+    var cart = findById(cartId);
+
+    if (cart == null)
+      throw new RuntimeException("cart not exists");
+
+    cart.getProducts().remove(product);
+  }
 }
