@@ -14,22 +14,22 @@ public class UserService {
     return userRepository.save(u);
   }
 
-  private User findById(Long userId) {
+  public User findById(Long userId) {
     return userRepository.findById(userId)
         .orElseThrow(() -> new RuntimeException("user with id %s not exists".formatted(userId)));
   }
 
-  private User findByEmail(String email) {
+  public User findByEmail(String email) {
     return userRepository.findByEmail(email)
         .orElseThrow(() -> new RuntimeException("user with id %s not exists".formatted(email)));
   }
 
-  private User findByUsername(String username) {
+  public User findByUsername(String username) {
     return userRepository.findByUsername(username)
         .orElseThrow(() -> new RuntimeException("user with id %s not exists".formatted(username)));
   }
 
-  private void delete(Long userId) {
+  public void delete(Long userId) {
     User u = findById(userId);
     userRepository.delete(u);
   }

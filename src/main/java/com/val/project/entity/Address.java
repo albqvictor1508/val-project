@@ -14,24 +14,24 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @NotBlank
-    @Column(length = 80, nullable = false)
-    private String city;
-    @NotBlank
-    @Column(length = 80, nullable = false)
-    private String uf;
-    @NotBlank
-    @Column(length = 80, nullable = false)
-    private String street;
-    @NotBlank
-    @Column(nullable = false)
-    private Integer number;
-    @Column(name = "is_default", nullable = false)
-    private boolean isDefault;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
+  @NotBlank
+  @Column(length = 80, nullable = false)
+  private String city;
+  @NotBlank
+  @Column(length = 80, nullable = false)
+  private String uf;
+  @NotBlank
+  @Column(length = 80, nullable = false)
+  private String street;
+  @NotBlank
+  @Column(nullable = false)
+  private Integer number;
+  @Column(name = "is_default", nullable = false)
+  private boolean isDefault;
 }
