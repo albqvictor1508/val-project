@@ -1,6 +1,7 @@
 package com.val.project.service;
 
 import com.val.project.entity.Product;
+import com.val.project.repository.CategoryRepository;
 import com.val.project.repository.ProductRepository;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
   private ProductRepository productRepository;
+  // private CategoryRepository categoryRepository;
 
   public Product save(Product p) {
     return productRepository.save(p);
