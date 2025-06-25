@@ -14,6 +14,7 @@ public class ProductService {
   @Autowired
   private CategoryService categoryService;
 
+  // WARN: provavelmente vou ter que validar o carrinho tb
   public Product save(Product p) {
     categoryService.findById(p.getCategory().getId());
     return productRepository.save(p);
