@@ -11,7 +11,4 @@ import com.val.project.entity.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
   Optional<Category> findByName(String name);
-
-  @Query(value = "SELECT * FROM Category c WHERE c.product_id = :productId")
-  Optional<List<Category>> findAllByProductId(@Param("productId") Long productId);
 }

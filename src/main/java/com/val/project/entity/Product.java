@@ -26,7 +26,7 @@ public class Product {
   @Column(nullable = false)
   private Double price;
   @ManyToOne
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "category_id")
   private Category category;
   // adicionar uma lista de fotos do produto, ou pode ser uma tabela de foto, com
 }
