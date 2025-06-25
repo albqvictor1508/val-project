@@ -1,5 +1,6 @@
 package com.val.project.service;
 
+import java.util.List;
 import com.val.project.entity.Product;
 import com.val.project.entity.ProductCart;
 import com.val.project.repository.ProductCartRepository;
@@ -49,5 +50,10 @@ public class ProductCartService {
 
     cart.getProducts().remove(product);
     productCartRepository.save(cart);
+  }
+
+  public List<Product> getProducts(Long cartId) {
+    var cart = findById(cartId);
+    return cart.getProducts();
   }
 }
