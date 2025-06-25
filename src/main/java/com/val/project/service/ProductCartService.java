@@ -59,6 +59,7 @@ public class ProductCartService {
 
   private void calculateTotal(Long cartId) {
     var cart = findById(cartId);
-    Long total = cart.getProducts().stream().reduce((ac, value) -> ac + value, 0);
+    Double total = cart.getProducts().stream().mapToDouble(Product::getPrice).sum();
+    System.out.println(total);
   }
 }
