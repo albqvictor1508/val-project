@@ -56,4 +56,9 @@ public class ProductCartService {
     var cart = findById(cartId);
     return cart.getProducts();
   }
+
+  private void calculateTotal(Long cartId) {
+    var cart = findById(cartId);
+    Long total = cart.getProducts().stream().reduce((ac, value) -> ac + value, 0);
+  }
 }

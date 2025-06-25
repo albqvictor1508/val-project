@@ -26,11 +26,6 @@ public class ProductService {
         .orElseThrow(() -> new RuntimeException("product with id %s not exists".formatted(productId)));
   }
 
-  public List<Product> findByCategorySlug(String categorySlug) {
-    Category category = categoryService.findBySlug(categorySlug);
-    return productRepository.findAllByCategoryId(category.getId());
-  }
-
   public List<Product> findAll() {
     return productRepository.findAll();
   }

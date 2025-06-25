@@ -22,11 +22,6 @@ public class ProductController {
   @Autowired
   private ProductService productService;
 
-  @GetMapping("/:categorySlug/products")
-  public List<Product> findByCategorySlug(@PathVariable String categorySlug) {
-    return productService.findByCategorySlug(categorySlug);
-  }
-
   @PostMapping
   public Product save(@Valid @RequestBody Product p) {
     return productService.save(p);
