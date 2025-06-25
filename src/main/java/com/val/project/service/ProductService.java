@@ -1,19 +1,21 @@
 package com.val.project.service;
 
 import com.val.project.entity.Product;
-import com.val.project.repository.CategoryRepository;
 import com.val.project.repository.ProductRepository;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
   private ProductRepository productRepository;
-  // private CategoryRepository categoryRepository;
+  @Autowired
+  private CategoryService categoryService;
 
   public Product save(Product p) {
+    categoryService.findById(p.getCategory().getId());
     return productRepository.save(p);
   }
 
