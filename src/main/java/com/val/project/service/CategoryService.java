@@ -27,8 +27,9 @@ public class CategoryService {
         .orElseThrow(() -> new RuntimeException("The category with id: %s not exists".formatted(id)));
   }
 
-  public List<Category> findAllByProductId(Long productId) {
-    return categoryRepository.findAllByProductId(productId).orElse(new ArrayList<>());
+  public Category findBySlug(String slug) {
+    return categoryRepository.findBySlug(slug)
+        .orElseThrow(() -> new RuntimeException("The category with slug: %s not exists".formatted(slug)));
   }
 
   public Category findByName(String name) {

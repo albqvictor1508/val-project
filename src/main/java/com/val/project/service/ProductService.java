@@ -1,6 +1,7 @@
 package com.val.project.service;
 
 import com.val.project.entity.Product;
+import com.val.project.entity.Category;
 import com.val.project.repository.ProductRepository;
 
 import java.util.List;
@@ -25,8 +26,9 @@ public class ProductService {
         .orElseThrow(() -> new RuntimeException("product with id %s not exists".formatted(productId)));
   }
 
-  public List<Product> findByCategory(String categoryName) {
-    return categoryService.findByName(categoryName);
+  public List<Product> findByCategorySlug(String categorySlug) {
+    Category category = categoryService.findBySlug(categorySlug);
+    return productRepository.findAllByCategoryId(category.getId());
   }
 
   public List<Product> findAll() {
