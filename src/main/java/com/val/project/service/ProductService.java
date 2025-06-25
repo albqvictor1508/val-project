@@ -26,8 +26,7 @@ public class ProductService {
   }
 
   public List<Product> findByCategory(String categoryName) {
-    return productRepository.findByCategory(category)
-        .orElseThrow(() -> new RuntimeException("this category not exists"));
+    return categoryService.findByName(categoryName);
   }
 
   public List<Product> findAll() {

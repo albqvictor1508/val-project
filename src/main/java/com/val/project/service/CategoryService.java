@@ -1,5 +1,8 @@
 package com.val.project.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.val.project.entity.Category;
@@ -22,6 +25,10 @@ public class CategoryService {
   public Category findById(Long id) {
     return categoryRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("The category with id: %s not exists".formatted(id)));
+  }
+
+  public List<Category> findAllByProductId(Long productId) {
+    return categoryRepository.findAllByProductId(productId).orElse(new ArrayList<>());
   }
 
   public Category findByName(String name) {
