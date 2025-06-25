@@ -25,7 +25,7 @@ public class ProductService {
         .orElseThrow(() -> new RuntimeException("product with id %s not exists".formatted(productId)));
   }
 
-  public List<Product> findByCategory(String category) {
+  public List<Product> findByCategory(String categoryName) {
     return productRepository.findByCategory(category)
         .orElseThrow(() -> new RuntimeException("this category not exists"));
   }
@@ -36,9 +36,6 @@ public class ProductService {
 
   public Product update(Product p) {
     Product existingProduct = findById(p.getId());
-    if (existingProduct == null)
-      throw new RuntimeException("Product not exits");
-
     existingProduct.setName(p.getName());
     existingProduct.setDescription(p.getDescription());
     existingProduct.setPrice(p.getPrice());
