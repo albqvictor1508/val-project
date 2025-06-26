@@ -1,7 +1,7 @@
 package com.val.project.service;
 
 import java.util.List;
-import com.val.project.entity.Product;
+import com.val.project.entity.CartItem;
 import com.val.project.entity.Cart;
 import com.val.project.repository.CartRepository;
 
@@ -24,11 +24,19 @@ public class CartService {
         .orElseThrow(() -> new RuntimeException("product cart with id %s not exists".formatted(cartId)));
   }
 
-  // TODO: trocar esse Product por um DTO
-  public void addProduct(Product p) {
+  public List<CartItem> getItemsById(Long cartId) {
+    Cart cart = findById(cartId);
+    return cart.getItems();
   }
 
   // TODO: trocar esse Product por um DTO
-  public void deleteProduct(Product p) {
+  public void addItem(CartItem item) {
+    Cart cart = this.findById(item.getCart().getId());
+    cart.getItems().add(item);
+    cartRepository.save(cart);
+  }
+
+  // TODO: trocar esse Product por um DTO
+  public void deleteItem(CartItem item) {
   }
 }
