@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
   private UserRepository userRepository;
 
-  private User save(User u) {
+  public User save(User u) {
     userRepository.findByEmail(u.getEmail()).orElse(null);
     userRepository.findByUsername(u.getUsername()).orElse(null);
     return userRepository.save(u);
