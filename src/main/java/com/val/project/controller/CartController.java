@@ -1,6 +1,5 @@
 package com.val.project.controller;
 
-import com.val.project.entity.Product;
 import com.val.project.entity.Cart;
 import com.val.project.service.CartService;
 
@@ -19,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cart")
 public class CartController {
   @Autowired
-  private CartService productCartService;
+  private CartService cartService;
 
   @PostMapping
   public Cart save(@Valid @RequestBody Cart cartBody) {
-    return productCartService.save(cartBody);
+    return cartService.save(cartBody);
   }
 }
