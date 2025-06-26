@@ -18,9 +18,6 @@ public class Product {
   private Long id;
   @Column(length = 120, nullable = false)
   private String name;
-  @ManyToOne
-  @JoinColumn(name = "cart_id")
-  private ProductCart cart;
   @Column(nullable = true)
   private String description;
   @Column(nullable = false)
