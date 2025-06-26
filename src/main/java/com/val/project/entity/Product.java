@@ -1,5 +1,7 @@
 package com.val.project.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +27,9 @@ public class Product {
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
   // adicionar uma lista de fotos do produto, ou pode ser uma tabela de foto, com
 }
