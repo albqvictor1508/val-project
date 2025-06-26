@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product_cart")
@@ -18,8 +18,19 @@ public class ProductCart {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @OneToMany(mappedBy = "cart")
-  private List<Product> products;
+  @Column(name = "session_id", unique = true)
+  private String sessionId;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
   @Column
   private Double total;
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
+  @Column(name = "created_at")
+  private LocalDateTime updatedAt;
+  // WARN: BOM MUDAR ISSO PRA UM ENUM
+  @Column
+  private String status;
+
 }
