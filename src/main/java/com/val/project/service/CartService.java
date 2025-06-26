@@ -4,7 +4,6 @@ import java.util.List;
 import com.val.project.entity.Product;
 import com.val.project.entity.Cart;
 import com.val.project.repository.CartRepository;
-import com.val.project.repository.ProductCartRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +15,8 @@ public class CartService {
   @Autowired
   private ProductService productService;
 
-  public Cart save(ProductCart productCart) {
-    return cartRepository.save(productCart);
+  public Cart save(Cart cart) {
+    return cartRepository.save(cart);
   }
 
   public Cart findById(Long cartId) {
@@ -27,13 +26,6 @@ public class CartService {
 
   // TODO: trocar esse Product por um DTO
   public void addProduct(Product p) {
-    Product product = productService.findById(p.getId());
-
-    final Long cartId = p.getCart().getId();
-    Cart cart = findById(cartId);
-
-    cart.getProducts().add(product);
-    cartRepository.save(cart);
   }
 
   // TODO: trocar esse Product por um DTO

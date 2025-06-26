@@ -1,8 +1,8 @@
 package com.val.project.controller;
 
 import com.val.project.entity.Product;
-import com.val.project.entity.ProductCart;
-import com.val.project.service.ProductCartService;
+import com.val.project.entity.Cart;
+import com.val.project.service.CartService;
 
 import jakarta.validation.Valid;
 
@@ -17,17 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/cart")
-public class ProductCartController {
+public class CartController {
   @Autowired
-  private ProductCartService productCartService;
+  private CartService productCartService;
 
   @PostMapping
-  public ProductCart save(@Valid @RequestBody ProductCart cartBody) {
+  public Cart save(@Valid @RequestBody Cart cartBody) {
     return productCartService.save(cartBody);
-  }
-
-  @GetMapping
-  public List<Product> getProducts(Long cartId) {
-    return productCartService.getProducts(cartId);
   }
 }
