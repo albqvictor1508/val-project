@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "product_cart")
+@Table(name = "carts")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class Cart {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(name = "session_id", unique = true)
+  @Column(name = "session_id", unique = true, nullable = true)
   private String sessionId;
   @ManyToOne
   @JoinColumn(name = "user_id")
