@@ -1,8 +1,7 @@
 package com.val.project.service;
 
-import java.util.ArrayList;
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.val.project.entity.Category;
@@ -10,7 +9,12 @@ import com.val.project.repository.CategoryRepository;
 
 @Service
 public class CategoryService {
+  @Autowired
   private CategoryRepository categoryRepository;
+
+  public List<Category> findAll() {
+    return categoryRepository.findAll();
+  }
 
   // TODO: mudar category pra DTO
   public Category save(Category c) {
@@ -35,5 +39,10 @@ public class CategoryService {
   public Category findByName(String name) {
     return categoryRepository.findByName(name)
         .orElseThrow(() -> new RuntimeException("The category with name: %s not exists".formatted(name)));
+  }
+
+  public void delete(Long categoryId) {
+    categoryRepository.deleteById(categoryId);
+    ;
   }
 }
