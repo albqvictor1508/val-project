@@ -2,6 +2,7 @@ package com.val.project.controller;
 
 import com.val.project.entity.User;
 import com.val.project.service.UserService;
+import com.val.project.types.UserRole;
 
 import jakarta.validation.Valid;
 
@@ -21,6 +22,10 @@ public class UserController {
 
   @PostMapping
   public User save(@Valid @RequestBody User u) {
+    for (var salve : UserRole.values()) {
+      if (u.getRole().getLabel() != salve.getLabel())
+        continue;
+    }
     return userService.save(u);
   }
 
