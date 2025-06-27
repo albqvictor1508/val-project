@@ -2,10 +2,13 @@ package com.val.project.service;
 
 import com.val.project.entity.User;
 import com.val.project.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+  @Autowired
   private UserRepository userRepository;
 
   public User save(User u) {
