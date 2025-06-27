@@ -44,10 +44,9 @@ public class User implements UserDetails {
   private String cpf;
   @OneToMany(mappedBy = "user")
   private List<Address> addresses;
-  @Enumerated()
   @NotBlank
   @Column(nullable = false)
-  private UserRole role;
+  private String role;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
