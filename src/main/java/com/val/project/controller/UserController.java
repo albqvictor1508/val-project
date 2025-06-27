@@ -23,8 +23,11 @@ public class UserController {
   @PostMapping
   public User save(@Valid @RequestBody User u) {
     try {
-      UserRole role = UserRole.valueOf(u.getRole());
-      u.setRole(role.getLabel());
+      for (UserRole role : UserRole.values()) {
+        if (!role.getLabel().equalsIgnoreCase(u.getRole()))
+          continue;
+        u.setRole(role.getLabel());
+      }
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("Invalid role", e);
     }

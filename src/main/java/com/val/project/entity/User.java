@@ -12,8 +12,6 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.val.project.types.UserRole;
-
 import java.util.Collection;
 import java.util.List;
 
