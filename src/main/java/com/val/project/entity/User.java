@@ -12,6 +12,8 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.val.project.types.UserRole;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class User implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @NotBlank
   @Email
   @Column(unique = true, length = 120, nullable = false)
   private String email;
@@ -41,7 +44,8 @@ public class User implements UserDetails {
   private String cpf;
   @OneToMany(mappedBy = "user")
   private List<Address> addresses;
-
+  @NotBlank
+  @Column(nullable = false)
   private UserRole role;
 
   @Override
