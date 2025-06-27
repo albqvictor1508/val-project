@@ -28,7 +28,7 @@ public class Cart {
   private Double total;
   @Column(name = "created_at")
   private LocalDateTime createdAt;
-  @Column(name = "created_at")
+  @Column(name = "updated_at")
   private LocalDateTime updatedAt;
   // WARN: BOM MUDAR ISSO PRA UM ENUM
   @Column
