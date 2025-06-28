@@ -4,8 +4,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.val.project.dto.CategoryRequest;
 import com.val.project.entity.Category;
 import com.val.project.repository.CategoryRepository;
+import com.val.project.utils.Parse;
 
 @Service
 public class CategoryService {
@@ -16,14 +18,28 @@ public class CategoryService {
     return categoryRepository.findAll();
   }
 
-  // TODO: mudar category pra DTO
-  public Category save(Category c) {
-    Category categoryExists = categoryRepository.findByName(c.getName()).orElse(null);
+  public Category save(CategoryRequest body) {
+    StringBuilder capitalize = new StringBuilder();
+    String[] nameSplited = body.getName().split(" ");
+
+    for (String word : nameSplited) {
+      capitalize.append(Character.toUpperCase(word.charAt(0)));
+      if (word.length() > 1) {
+        capitalize.append(word.substring(1).toLowerCase());
+      }
+      capitalize.append(" ");
+    }
+
+    final String name = capitalize.toString().trim();
+    String slug = Parse.removeAccents(name).replace(" ", "-").toLowerCase();
+
+    Category categoryExists = categoryRepository.findByName(name).orElse(null);
 
     if (categoryExists != null)
-      throw new RuntimeException("The category with name: %s already exists".formatted(c.getName()));
+      throw new RuntimeException("The category with name: %s already exists".formatted(body.getName()));
 
-    return categoryRepository.save(c);
+    Category category = new Category(name, slug);
+    return categoryRepository.save(category);
   }
 
   public Category findById(Long id) {
@@ -43,5 +59,9 @@ public class CategoryService {
 
   public void delete(Long categoryId) {
     categoryRepository.deleteById(categoryId);
+  }
+
+  public boolean existsByName(String name) {
+    return categoryRepository.existsByName(name);
   }
 }
