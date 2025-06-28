@@ -30,8 +30,20 @@ public class CategoryController {
 
   @PostMapping
   public Category save(@Valid @RequestBody CategoryRequest body) {
-    String slug = body.getName().replace(" ", "-").toLowerCase();
-    Category category = new Category(body.getName(), slug);
+    StringBuilder capitalize = new StringBuilder();
+    String[] nameSplited = body.getName().split(" ");
+
+    for (String word : nameSplited) {
+      capitalize.append(Character.toUpperCase(word.charAt(0)));
+      if (word.length() > 1) {
+        capitalize.append(word.substring(1).toLowerCase());
+      }
+      capitalize.append(" ");
+    }
+
+    final String name = capitalize.toString().trim();
+    String slug = name.replace(" ", "-").toLowerCase();
+    Category category = new Category(name, slug);
     return categoryService.save(category);
   }
 
