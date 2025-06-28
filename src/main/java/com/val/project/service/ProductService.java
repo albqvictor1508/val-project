@@ -4,6 +4,7 @@ import com.val.project.entity.Product;
 import com.val.project.entity.Category;
 import com.val.project.repository.ProductRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
+  @Autowired
   private ProductRepository productRepository;
   @Autowired
   private CategoryService categoryService;
@@ -18,6 +20,7 @@ public class ProductService {
   // WARN: provavelmente vou ter que validar o carrinho tb
   public Product save(Product p) {
     categoryService.findById(p.getCategory().getId());
+    p.setCreatedAt(LocalDateTime.now());
     return productRepository.save(p);
   }
 

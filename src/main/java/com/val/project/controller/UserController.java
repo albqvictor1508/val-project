@@ -20,6 +20,7 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  // TODO: encrypt de senha
   @PostMapping
   public User save(@Valid @RequestBody User u) {
     try {

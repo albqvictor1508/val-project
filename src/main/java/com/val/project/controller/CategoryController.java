@@ -18,7 +18,7 @@ import com.val.project.service.CategoryService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
   @Autowired
   private CategoryService categoryService;

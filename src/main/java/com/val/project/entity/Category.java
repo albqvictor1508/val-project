@@ -1,5 +1,6 @@
 package com.val.project.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -30,6 +31,8 @@ public class Category {
   private String slug;
   @OneToMany(mappedBy = "category")
   private List<Product> products;
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
 
   public Category(String name, String slug) {
     this.name = name;

@@ -2,6 +2,9 @@ package com.val.project.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.engine.jdbc.cursor.internal.FallbackRefCursorSupport;
+import org.springframework.data.annotation.CreatedDate;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,9 +30,18 @@ public class Product {
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
-  @Column(name = "created_at")
+
+  @CreatedDate
+  @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt;
-  @Column(name = "updated_at")
+  @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
+
   // adicionar uma lista de fotos do produto, ou pode ser uma tabela de foto, com
+  public Product(String name, String description, Double price, Category c) {
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.category = c;
+  }
 }

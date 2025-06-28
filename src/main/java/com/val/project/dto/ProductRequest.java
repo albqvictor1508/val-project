@@ -12,10 +12,8 @@ public class ProductRequest {
   @NotBlank
   @NotNull
   private String description;
-  @NotBlank
   @NotNull
   private Double price;
-  @NotBlank
   @NotNull
   private Long categoryId;
 }
