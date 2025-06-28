@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.val.project.dto.CategoryRequest;
 import com.val.project.entity.Category;
 import com.val.project.service.CategoryService;
 
@@ -28,11 +29,13 @@ public class CategoryController {
   }
 
   @PostMapping
-  public Category save(@Valid @RequestBody Category body) {
-    return categoryService.save(body);
+  public Category save(@Valid @RequestBody CategoryRequest body) {
+    String slug = body.getName().replace(" ", "-").toLowerCase();
+    Category category = new Category(body.getName(), slug);
+    return categoryService.save(category);
   }
 
-  @GetMapping
+  @GetMapping("/:categoryId")
   public Category findById(@PathVariable Long categoryId) {
     return categoryService.findById(categoryId);
   }
