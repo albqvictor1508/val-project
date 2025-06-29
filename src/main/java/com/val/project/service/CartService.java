@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CartService {
+  @Autowired
   private CartRepository cartRepository;
 
-  @Autowired
-  private ProductService productService;
+  // @Autowired
+  // private productService;
 
   public Cart save(Cart cart) {
     return cartRepository.save(cart);
@@ -32,7 +33,10 @@ public class CartService {
   // TODO: trocar esse Product por um DTO
   public void addItem(CartItem item) {
     Cart cart = this.findById(item.getCart().getId());
-    cart.getItems().add(item);
+    CartItem i = cart.getItems().add(item);
+
+    // WARN: se ja tiver um produto com o mesmo id, aumentar a quantidade;
+
     cartRepository.save(cart);
   }
 

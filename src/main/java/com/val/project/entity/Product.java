@@ -2,7 +2,6 @@ package com.val.project.entity;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.engine.jdbc.cursor.internal.FallbackRefCursorSupport;
 import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.*;
