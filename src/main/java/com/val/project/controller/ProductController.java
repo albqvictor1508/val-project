@@ -1,7 +1,7 @@
 package com.val.project.controller;
 
-import com.val.project.dto.ProductRequest;
-import com.val.project.dto.ProductResponse;
+import com.val.project.dto.product.ProductRequest;
+import com.val.project.dto.product.ProductResponse;
 import com.val.project.entity.Category;
 import com.val.project.entity.Product;
 import com.val.project.service.CategoryService;
