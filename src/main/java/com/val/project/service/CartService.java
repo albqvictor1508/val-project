@@ -13,8 +13,8 @@ public class CartService {
   @Autowired
   private CartRepository cartRepository;
 
-  // @Autowired
-  // private productService;
+  @Autowired
+  private CartItemService cartItemService;
 
   public Cart save(Cart cart) {
     return cartRepository.save(cart);
@@ -33,7 +33,11 @@ public class CartService {
   // TODO: trocar esse Product por um DTO
   public void addItem(CartItem item) {
     Cart cart = this.findById(item.getCart().getId());
-    CartItem i = cart.getItems().add(item);
+    if (cartItemService.existsById(item.getId())) {
+      item.setQuantity(item.getQuantity() + 1);
+      cartRepository.save(cart);
+    }
+    cart.getItems().add(item);
 
     // WARN: se ja tiver um produto com o mesmo id, aumentar a quantidade;
 

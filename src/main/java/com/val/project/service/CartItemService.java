@@ -23,4 +23,8 @@ public class CartItemService {
     return cartItemRepository.findById(cartItemId)
         .orElseThrow(() -> new RuntimeException("The cart item with id: %s not exists".formatted(cartItemId)));
   }
+
+  public Boolean existsById(Long cartItemId) {
+    return cartItemRepository.existsById(cartItemId);
+  }
 }
