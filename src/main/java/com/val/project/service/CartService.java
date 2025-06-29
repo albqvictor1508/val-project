@@ -34,6 +34,7 @@ public class CartService {
   public void addItem(CartItem item) {
     Cart cart = this.findById(item.getCart().getId());
     if (cartItemService.existsById(item.getId())) {
+      // WARN: concertar essa lógica
       item.setQuantity(item.getQuantity() + 1);
       cartRepository.save(cart);
     }
