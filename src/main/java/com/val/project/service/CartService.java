@@ -30,22 +30,26 @@ public class CartService {
     return cart.getItems();
   }
 
-  // TODO: trocar esse Product por um DTO
   public void addItem(CartItem item) {
     Cart cart = this.findById(item.getCart().getId());
     if (cartItemService.existsById(item.getId())) {
-      // WARN: concertar essa lógica
       item.setQuantity(item.getQuantity() + 1);
       cartRepository.save(cart);
+      return;
     }
     cart.getItems().add(item);
-
-    // WARN: se ja tiver um produto com o mesmo id, aumentar a quantidade;
-
     cartRepository.save(cart);
   }
 
-  // TODO: trocar esse Product por um DTO
   public void deleteItem(CartItem item) {
+    Cart cart = this.findById(item.getCart().getId());
+    if (cartItemService.existsById(item.getId())) {
+      item.setQuantity(item.getQuantity() - 1);
+      cartRepository.save(cart);
+      return;
+    }
+    cart.getItems().remove(item);
+    cartRepository.save(cart);
+
   }
 }
