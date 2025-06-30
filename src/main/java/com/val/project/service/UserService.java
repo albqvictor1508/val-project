@@ -1,19 +1,29 @@
 package com.val.project.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.val.project.entity.User;
 import com.val.project.repository.UserRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   public User save(User u) {
     userRepository.findByEmail(u.getEmail()).orElse(null);
     userRepository.findByUsername(u.getUsername()).orElse(null);
+    try {
+      String encodedPassword = passwordEncoder.encode(u.getPassword());
+      u.setPassword(encodedPassword);
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to encrypt password");
+    }
+
     return userRepository.save(u);
   }
 
