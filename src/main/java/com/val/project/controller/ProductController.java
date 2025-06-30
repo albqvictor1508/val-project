@@ -44,12 +44,12 @@ public class ProductController {
     return new ProductResponse(p);
   }
 
-  @DeleteMapping("/:productId")
+  @DeleteMapping("/{productId}")
   public void delete(@PathVariable Long productId) {
     productService.delete(productId);
   }
 
-  @PutMapping("/:productId")
+  @PutMapping("/{productId}")
   public ProductResponse update(@PathVariable Long productId, @Valid @RequestBody ProductRequest body) {
     Product p = productService.findById(productId);
     Category c = categoryService.findById(body.getCategoryId());

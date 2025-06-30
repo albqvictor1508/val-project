@@ -2,11 +2,13 @@ package com.val.project.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.val.project.dto.category.CategoryRequest;
 import com.val.project.entity.Category;
+import com.val.project.entity.Product;
 import com.val.project.repository.CategoryRepository;
 import com.val.project.utils.Parse;
 
@@ -71,5 +73,9 @@ public class CategoryService {
   public Category update(Category c) {
     c.setUpdatedAt(LocalDateTime.now());
     return categoryRepository.save(c);
+  }
+
+  public List<Product> findProductsByCategoryId(Long categoryId) {
+    return categoryRepository.findProductsByCategoryId(categoryId);
   }
 }

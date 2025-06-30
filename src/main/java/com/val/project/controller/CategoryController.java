@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.val.project.dto.category.CategoryRequest;
+import com.val.project.entity.CartItem;
 import com.val.project.entity.Category;
 import com.val.project.service.CategoryService;
 
@@ -53,5 +54,11 @@ public class CategoryController {
     Category c = categoryService.findById(categoryId);
     c.setName(body.getName());
     return categoryService.update(c);
+  }
+
+  @GetMapping("{categoryId}/products")
+  public List<CartItem> findProductsByCategoryId(@PathVariable Long categoryId) {
+    Category c = findById(categoryId);
+    return categoryService.findProductsByCategoryId(c.getId());
   }
 }

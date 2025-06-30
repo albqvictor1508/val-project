@@ -22,6 +22,7 @@ public class ProductService {
   public Product save(Product p) {
     categoryService.findById(p.getCategory().getId());
     p.setCreatedAt(LocalDateTime.now());
+    p.setUpdatedAt(LocalDateTime.now());
     return productRepository.save(p);
   }
 
