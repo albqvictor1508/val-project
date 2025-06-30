@@ -20,9 +20,9 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  // TODO: encrypt de senha
   @PostMapping
   public User save(@Valid @RequestBody User u) {
+    // WARN: add validation to username
     try {
       for (UserRole role : UserRole.values()) {
         if (!role.getLabel().equalsIgnoreCase(u.getRole()))
