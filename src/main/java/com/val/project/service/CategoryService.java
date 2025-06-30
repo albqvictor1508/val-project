@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.val.project.dto.CategoryRequest;
+import com.val.project.dto.category.CategoryRequest;
 import com.val.project.entity.Category;
 import com.val.project.repository.CategoryRepository;
 import com.val.project.utils.Parse;
