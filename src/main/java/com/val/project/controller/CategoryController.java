@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.val.project.dto.category.CategoryRequest;
-import com.val.project.entity.CartItem;
+import com.val.project.dto.category.CategoryResponse;
+import com.val.project.dto.product.ProductResponse;
 import com.val.project.entity.Category;
 import com.val.project.service.CategoryService;
 
@@ -26,7 +27,7 @@ public class CategoryController {
   private CategoryService categoryService;
 
   @GetMapping
-  public List<Category> findAll() {
+  public List<CategoryResponse> findAll() {
     return categoryService.findAll();
   }
 
@@ -55,4 +56,10 @@ public class CategoryController {
     c.setName(body.getName());
     return categoryService.update(c);
   }
+
+  @GetMapping("/{categoryId}/products")
+  public List<ProductResponse> findProductsByCategoryId(@PathVariable Long categoryId) {
+    return categoryService.findProductsByCategoryId(categoryId);
+  }
+
 }

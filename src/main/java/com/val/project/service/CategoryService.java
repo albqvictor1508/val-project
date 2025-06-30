@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.val.project.dto.category.CategoryRequest;
 import com.val.project.dto.category.CategoryResponse;
+import com.val.project.dto.product.ProductResponse;
 import com.val.project.entity.Category;
+import com.val.project.entity.Product;
 import com.val.project.repository.CategoryRepository;
 import com.val.project.utils.Parse;
 
@@ -17,6 +19,9 @@ import com.val.project.utils.Parse;
 public class CategoryService {
   @Autowired
   private CategoryRepository categoryRepository;
+
+  @Autowired
+  private ProductService productService;
 
   public List<CategoryResponse> findAll() {
     List<CategoryResponse> response = new ArrayList<>();
@@ -42,14 +47,14 @@ public class CategoryService {
     }
 
     final String name = capitalize.toString().trim();
-    String slug = Parse.removeAccents(name).replace(" ", "-").toLowerCase();
+    final String slug = Parse.removeAccents(name).replace(" ", "-").toLowerCase();
 
-    Category categoryExists = categoryRepository.findByName(name).orElse(null);
+    final Category categoryExists = categoryRepository.findByName(name).orElse(null);
 
     if (categoryExists != null)
       throw new RuntimeException("The category with name: %s already exists".formatted(body.getName()));
 
-    Category category = new Category(name, slug);
+    final Category category = new Category(name, slug);
     category.setCreatedAt(LocalDateTime.now());
     category.setUpdatedAt(LocalDateTime.now());
     return categoryRepository.save(category);
@@ -81,5 +86,10 @@ public class CategoryService {
   public Category update(Category c) {
     c.setUpdatedAt(LocalDateTime.now());
     return categoryRepository.save(c);
+  }
+
+  public List<ProductResponse> findProductsByCategoryId(Long categoryId) {
+    Category c = findById(categoryId);
+    return productService.findProductsByCategoryId(c.getId());
   }
 }

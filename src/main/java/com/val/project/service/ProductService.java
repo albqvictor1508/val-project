@@ -2,7 +2,10 @@ package com.val.project.service;
 
 import com.val.project.entity.Product;
 import com.val.project.dto.product.ProductResponse;
+import com.val.project.repository.CategoryRepository;
 import com.val.project.repository.ProductRepository;
+
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,11 +19,15 @@ public class ProductService {
   @Autowired
   private ProductRepository productRepository;
   @Autowired
-  private CategoryService categoryService;
+  private CategoryRepository categoryRepository;
 
   // WARN: provavelmente vou ter que validar o carrinho tb
   public Product save(Product p) {
-    categoryService.findById(p.getCategory().getId());
+    final Long categoryId = p.getCategory().getId();
+    categoryRepository.findById(categoryId)
+        .orElseThrow(
+            () -> new RuntimeException("The category with id: %s not exists".formatted(categoryId)));
+
     p.setCreatedAt(LocalDateTime.now());
     p.setUpdatedAt(LocalDateTime.now());
     return productRepository.save(p);
@@ -36,8 +43,8 @@ public class ProductService {
   }
 
   public List<ProductResponse> findAll() {
-    List<ProductResponse> response = new ArrayList<>();
-    List<Product> productList = productRepository.findAll();
+    final List<ProductResponse> response = new ArrayList<>();
+    final List<Product> productList = productRepository.findAll();
 
     for (Product p : productList) {
       response.add(new ProductResponse(p));
@@ -47,7 +54,7 @@ public class ProductService {
   }
 
   public Product update(Product p) {
-    Product existingProduct = findById(p.getId());
+    final Product existingProduct = findById(p.getId());
     existingProduct.setName(p.getName());
     existingProduct.setDescription(p.getDescription());
     existingProduct.setPrice(p.getPrice());
@@ -56,13 +63,13 @@ public class ProductService {
   }
 
   public void delete(Long productId) {
-    Product p = findById(productId);
+    final Product p = findById(productId);
     productRepository.delete(p);
   }
 
   public List<ProductResponse> findProductsByCategoryId(Long categoryId) {
-    List<ProductResponse> response = new ArrayList<>();
-    List<Product> products = productRepository.findByCategoryId(categoryId);
+    final List<ProductResponse> response = new ArrayList<>();
+    final List<Product> products = productRepository.findByCategoryId(categoryId);
 
     for (Product p : products) {
       response.add(new ProductResponse(p));
