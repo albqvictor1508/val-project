@@ -39,12 +39,12 @@ public class UserService {
 
   public User findByEmail(String email) {
     return userRepository.findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("user with id %s not exists".formatted(email)));
+        .orElseThrow(() -> new RuntimeException("user with email: %s not exists".formatted(email)));
   }
 
   public User findByUsername(String username) {
     return userRepository.findByUsername(username)
-        .orElseThrow(() -> new RuntimeException("user with id %s not exists".formatted(username)));
+        .orElseThrow(() -> new RuntimeException("user with username: %s not exists".formatted(username)));
   }
 
   public Boolean existByUsername(String name) {
