@@ -1,10 +1,12 @@
 package com.val.project.service;
 
 import com.val.project.entity.Product;
+import com.val.project.dto.product.ProductResponse;
 import com.val.project.entity.Category;
 import com.val.project.repository.ProductRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,19 @@ public class ProductService {
         .orElseThrow(() -> new RuntimeException("product with id %s not exists".formatted(productId)));
   }
 
-  public List<Product> findAll() {
-    return productRepository.findAll();
+  public Boolean existsById(Long productId) {
+    return productRepository.existsById(productId);
+  }
+
+  public List<ProductResponse> findAll() {
+    List<ProductResponse> response = new ArrayList<>();
+    List<Product> productList = productRepository.findAll();
+
+    for (Product p : productList) {
+      response.add(new ProductResponse(p));
+    }
+
+    return response;
   }
 
   public Product update(Product p) {

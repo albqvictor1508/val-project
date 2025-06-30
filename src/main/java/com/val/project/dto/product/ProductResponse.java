@@ -31,6 +31,6 @@ public class ProductResponse {
     this.price = p.getPrice();
     this.categoryId = p.getCategory().getId();
     this.createdAt = p.getCreatedAt();
-    this.updatedAt = LocalDateTime.now();
+    this.updatedAt = p.getUpdatedAt();
   }
 }
