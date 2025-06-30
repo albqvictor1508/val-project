@@ -1,6 +1,5 @@
 package com.val.project.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,17 +38,17 @@ public class CategoryController {
     return categoryService.save(body);
   }
 
-  @GetMapping("/:categoryId")
+  @GetMapping("/{categoryId}")
   public Category findById(@PathVariable Long categoryId) {
     return categoryService.findById(categoryId);
   }
 
-  @DeleteMapping("/:categoryId")
+  @DeleteMapping("/{categoryId}")
   public void delete(@PathVariable Long categoryId) {
     categoryService.delete(categoryId);
   }
 
-  @PutMapping("/:categoryId")
+  @PutMapping("/{categoryId}")
   public Category update(@PathVariable Long categoryId, @Valid @RequestBody CategoryRequest body) {
     Category c = categoryService.findById(categoryId);
     c.setName(body.getName());

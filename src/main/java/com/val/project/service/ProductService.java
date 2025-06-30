@@ -2,7 +2,6 @@ package com.val.project.service;
 
 import com.val.project.entity.Product;
 import com.val.project.dto.product.ProductResponse;
-import com.val.project.entity.Category;
 import com.val.project.repository.ProductRepository;
 
 import java.time.LocalDateTime;
