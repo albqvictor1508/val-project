@@ -61,6 +61,13 @@ public class ProductService {
   }
 
   public List<ProductResponse> findProductsByCategoryId(Long categoryId) {
-    return productRepository.findProductsByCategoryId(categoryId);
+    List<ProductResponse> response = new ArrayList<>();
+    List<Product> products = productRepository.findByCategoryId(categoryId);
+
+    for (Product p : products) {
+      response.add(new ProductResponse(p));
+    }
+
+    return response;
   }
 }

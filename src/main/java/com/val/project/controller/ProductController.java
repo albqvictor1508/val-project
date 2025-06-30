@@ -64,7 +64,7 @@ public class ProductController {
   }
 
   @GetMapping("{categoryId}/products")
-  public List<Product> findProductsByCategoryId(@PathVariable Long categoryId) {
+  public List<ProductResponse> findProductsByCategoryId(@PathVariable Long categoryId) {
     Category c = categoryService.findById(categoryId);
     return productService.findProductsByCategoryId(c.getId());
   }

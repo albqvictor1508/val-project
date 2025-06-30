@@ -1,14 +1,15 @@
 package com.val.project.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.val.project.dto.category.CategoryRequest;
+import com.val.project.dto.category.CategoryResponse;
 import com.val.project.entity.Category;
-import com.val.project.entity.Product;
 import com.val.project.repository.CategoryRepository;
 import com.val.project.utils.Parse;
 
@@ -17,8 +18,15 @@ public class CategoryService {
   @Autowired
   private CategoryRepository categoryRepository;
 
-  public List<Category> findAll() {
-    return categoryRepository.findAll();
+  public List<CategoryResponse> findAll() {
+    List<CategoryResponse> response = new ArrayList<>();
+    List<Category> categories = categoryRepository.findAll();
+
+    for (Category c : categories) {
+      response.add(new CategoryResponse(c));
+    }
+
+    return response;
   }
 
   public Category save(CategoryRequest body) {
