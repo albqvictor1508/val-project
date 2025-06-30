@@ -74,8 +74,4 @@ public class CategoryService {
     c.setUpdatedAt(LocalDateTime.now());
     return categoryRepository.save(c);
   }
-
-  public List<Product> findProductsByCategoryId(Long categoryId) {
-    return categoryRepository.findProductsByCategoryId(categoryId);
-  }
 }

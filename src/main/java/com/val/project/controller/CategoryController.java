@@ -55,10 +55,4 @@ public class CategoryController {
     c.setName(body.getName());
     return categoryService.update(c);
   }
-
-  @GetMapping("{categoryId}/products")
-  public List<CartItem> findProductsByCategoryId(@PathVariable Long categoryId) {
-    Category c = findById(categoryId);
-    return categoryService.findProductsByCategoryId(c.getId());
-  }
 }

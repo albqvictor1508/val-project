@@ -59,4 +59,8 @@ public class ProductService {
     Product p = findById(productId);
     productRepository.delete(p);
   }
+
+  public List<ProductResponse> findProductsByCategoryId(Long categoryId) {
+    return productRepository.findProductsByCategoryId(categoryId);
+  }
 }

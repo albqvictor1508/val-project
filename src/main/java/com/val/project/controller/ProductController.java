@@ -62,4 +62,10 @@ public class ProductController {
     Product newProduct = productService.save(p);
     return new ProductResponse(newProduct);
   }
+
+  @GetMapping("{categoryId}/products")
+  public List<Product> findProductsByCategoryId(@PathVariable Long categoryId) {
+    Category c = categoryService.findById(categoryId);
+    return productService.findProductsByCategoryId(c.getId());
+  }
 }
