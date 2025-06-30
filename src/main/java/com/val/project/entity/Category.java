@@ -33,6 +33,8 @@ public class Category {
   private List<Product> products;
   @Column(name = "created_at")
   private LocalDateTime createdAt;
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
 
   public Category(String name, String slug) {
     this.name = name;

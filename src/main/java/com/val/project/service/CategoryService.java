@@ -1,5 +1,6 @@
 package com.val.project.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,8 @@ public class CategoryService {
       throw new RuntimeException("The category with name: %s already exists".formatted(body.getName()));
 
     Category category = new Category(name, slug);
+    category.setCreatedAt(LocalDateTime.now());
+    category.setUpdatedAt(LocalDateTime.now());
     return categoryRepository.save(category);
   }
 
@@ -61,7 +64,12 @@ public class CategoryService {
     categoryRepository.deleteById(categoryId);
   }
 
-  public boolean existsByName(String name) {
+  public Boolean existsByName(String name) {
     return categoryRepository.existsByName(name);
+  }
+
+  public Category update(Category c) {
+    c.setUpdatedAt(LocalDateTime.now());
+    return categoryRepository.save(c);
   }
 }
