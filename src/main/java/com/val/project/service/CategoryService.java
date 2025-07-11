@@ -11,7 +11,6 @@ import com.val.project.dto.category.CategoryRequest;
 import com.val.project.dto.category.CategoryResponse;
 import com.val.project.dto.product.ProductResponse;
 import com.val.project.entity.Category;
-import com.val.project.entity.Product;
 import com.val.project.repository.CategoryRepository;
 import com.val.project.utils.Parse;
 
