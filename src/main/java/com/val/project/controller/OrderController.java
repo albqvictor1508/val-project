@@ -15,6 +15,7 @@ public class OrderController {
   @Autowired
   private OrderService orderService;
 
+  // TODO: CRIAR O ORDER QUANDO O CHECKOUT FOR FEITO, E CRIAR UM DTO PRA ISSO
   public ResponseEntity<Order> createOrder(@Valid @RequestBody Order o) {
     return ResponseEntity.ok(o);
   }
