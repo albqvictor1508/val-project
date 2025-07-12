@@ -52,4 +52,8 @@ public class CartService {
     cart.getItems().remove(item);
     cartRepository.save(cart);
   }
+
+  public void deleteCart(Long cartId) {
+    cartRepository.deleteById(cartId);
+  }
 }

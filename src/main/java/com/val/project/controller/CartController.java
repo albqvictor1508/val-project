@@ -1,5 +1,7 @@
 package com.val.project.controller;
 
+import com.val.project.dto.cart.CartDTO;
+import com.val.project.dto.cart.CartRequest;
 import com.val.project.entity.Cart;
 import com.val.project.entity.CartItem;
 import com.val.project.repository.CartItemRepository;
@@ -28,12 +30,14 @@ public class CartController {
   private CartItemRepository cartItemRepository;
 
   @PostMapping
-  public Cart save(@Valid @RequestBody final Cart cartBody) {
-    return cartService.save(cartBody);
+  public Cart save(@Valid @RequestBody final CartRequest cartBody) {
+    Cart cart = cartService.findById(cartBody.getId());
+    return cartService.save(cart);
   }
 
   @DeleteMapping("/{cartId}")
   public void delete(@PathVariable final Long cartId) {
+    cartService.deleteCart(cartId);
   }
 
   @GetMapping("/{cartId}")

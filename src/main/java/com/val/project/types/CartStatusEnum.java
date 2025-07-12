@@ -1,15 +1,13 @@
 package com.val.project.types;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum CartStatusEnum {
-  OPEN(""),
-  FINALIZED("bsalsa");
+  OPEN("open"),
+  FINALIZED("finalized");
 
   private final String label;
-
-  private CartStatusEnum(final String label) {
-    this.label = label;
-  }
 }
