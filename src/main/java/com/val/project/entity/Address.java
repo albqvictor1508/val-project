@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "adresses")
+@Table(name = "addresses")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,6 +29,8 @@ public class Address {
   @NotBlank
   @Column(length = 80, nullable = false)
   private String street;
+  @Column(length = 10, name = "zip_code", nullable = false)
+  private String zipCode; // CEP
   @NotBlank
   @Column(nullable = false)
   private Integer number;
