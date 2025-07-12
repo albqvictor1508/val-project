@@ -28,20 +28,21 @@ public class CartController {
   private CartItemRepository cartItemRepository;
 
   @PostMapping
-  public Cart save(@Valid @RequestBody Cart cartBody) {
+  public Cart save(@Valid @RequestBody final Cart cartBody) {
     return cartService.save(cartBody);
   }
 
   @DeleteMapping("/{cartId}")
-  public void delete(@PathVariable Long cartId) {
+  public void delete(@PathVariable final Long cartId) {
   }
 
   @GetMapping("/{cartId}")
-  public Cart getCartById(@PathVariable Long cartId) {
+  public Cart getCartById(@PathVariable final Long cartId) {
     return cartService.findById(cartId);
   }
 
-  public List<CartItem> getItemsById(@PathVariable Long cartId) {
+  @GetMapping("/{cartId}/items")
+  public List<CartItem> getItemsById(@PathVariable final Long cartId) {
     return cartService.getItemsById(cartId);
   }
 
