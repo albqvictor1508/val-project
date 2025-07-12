@@ -2,7 +2,6 @@ package com.val.project.controller;
 
 import com.val.project.entity.User;
 import com.val.project.service.UserService;
-import com.val.project.types.UserRole;
 
 import jakarta.validation.Valid;
 
