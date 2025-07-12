@@ -27,9 +27,8 @@ public class CartController {
   private CartService cartService;
 
   @PostMapping
-  public Cart save(@Valid @RequestBody final CartRequest cartBody) {
-    Cart cart = cartService.findByUserId(cartBody.getUserId());
-    return cartService.save(cart);
+  public Cart createOrGetCart(@Valid @RequestBody final CartRequest cartBody) {
+    return cartService.findOrCreateCartForUser(cartBody.getUserId(), cartBody.getSessionId());
   }
 
   @DeleteMapping("/{cartId}")

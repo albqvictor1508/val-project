@@ -34,6 +34,24 @@ public class CartService {
         .orElseThrow(() -> new RuntimeException("The cart with userId: %s not exists".formatted(userId)));
   }
 
+  public Cart findOrCreateCartForUser(Long userId, String sessionId) {
+    Optional<Cart> existingCart = cartRepository.findByUserId(userId);
+    if (existingCart.isPresent()) {
+      return existingCart.get();
+    }
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new RuntimeException("User with id %s not found".formatted(userId)));
+    Cart newCart = new Cart();
+    newCart.setUser(user);
+    newCart.setSessionId(sessionId);
+    newCart.setStatus(CartStatusEnum.OPEN);
+    newCart.setCreatedAt(LocalDateTime.now());
+    newCart.setUpdatedAt(LocalDateTime.now());
+    newCart.setTotal(0.0);
+
+    return cartRepository.save(newCart);
+  }
+
   public Cart save(Cart cart) {
     return cartRepository.save(cart);
   }
@@ -58,6 +76,7 @@ public class CartService {
         .filter(item -> item.getProduct().getId().equals(request.getProductId()))
         .findFirst();
 
+    // WARN: RETIRAR ESSE ELSE E USAR EARLY RETURN
     CartItem cartItem;
     if (existingItemOptional.isPresent()) {
       cartItem = existingItemOptional.get();
