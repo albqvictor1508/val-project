@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.val.project.dto.cart.AddItemRequest;
 import com.val.project.dto.cart.CartRequest;
 import com.val.project.entity.Cart;
 import com.val.project.entity.CartItem;
-import com.val.project.repository.CartItemRepository;
 import com.val.project.service.CartService;
 
 import jakarta.validation.Valid;
@@ -25,8 +25,6 @@ import jakarta.validation.Valid;
 public class CartController {
   @Autowired
   private CartService cartService;
-  @Autowired
-  private CartItemRepository cartItemRepository;
 
   @PostMapping
   public Cart save(@Valid @RequestBody final CartRequest cartBody) {
@@ -49,17 +47,10 @@ public class CartController {
     return cartService.getItemsById(cartId);
   }
 
-  // TODO: jogar isso aqui no service
   @PostMapping("/{cartId}/items")
-  public ResponseEntity<?> addItem(@PathVariable final Long cartItemId) {
-    CartItem cartItem = cartItemRepository.findById(cartItemId)
-        .orElseThrow(() -> new RuntimeException("Carth  item with id: %s not exists".formatted(cartItemId)));
-
-    Long cartId = cartItem.getCart().getId();
-    Cart cart = cartService.findById(cartId);
-
-    cart.getItems().add(cartItem);
-    cartService.save(cart);
+  public ResponseEntity<CartItem> addItemToCart(@PathVariable final Long cartId,
+      @Valid @RequestBody AddItemRequest request) {
+    CartItem cartItem = cartService.addItem(cartId, request);
     return ResponseEntity.ok(cartItem);
   }
 }
