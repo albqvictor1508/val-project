@@ -46,6 +46,7 @@ public class CartController {
     return cartService.getItemsById(cartId);
   }
 
+  // TODO: jogar isso aqui no service
   @PostMapping("/items/{cartItemId}")
   public ResponseEntity<?> addItem(@PathVariable final Long cartItemId) {
     CartItem cartItem = cartItemRepository.findById(cartItemId)

@@ -1,8 +1,11 @@
 package com.val.project.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +32,10 @@ public class Product {
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<ProductImage> images;
 
   @CreatedDate
   @Column(name = "created_at", nullable = false)
