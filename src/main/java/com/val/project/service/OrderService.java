@@ -9,7 +9,11 @@ public class OrderService {
   @Autowired
   private OrderRepository orderRepository;
 
-  public Order createOrder() {
-    return null;
+  public Order createOrder(Order o) {
+    return orderRepository.save(o);
+  }
+
+  public void deleteOrder(Long orderId) {
+    orderRepository.deleteById(orderId);
   }
 }

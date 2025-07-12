@@ -19,4 +19,9 @@ public class OrderController {
   public ResponseEntity<Order> createOrder(@Valid @RequestBody Order o) {
     return ResponseEntity.ok(o);
   }
+
+  public ResponseEntity<?> deleteOrder(@Valid @RequestBody Long orderId) {
+    orderService.delete(orderId);
+    return ResponseEntity.status(200).build();
+  }
 }
