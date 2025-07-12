@@ -52,5 +52,9 @@ public class CartController {
 
     Long cartId = cartItem.getCart().getId();
     Cart cart = cartService.findById(cartId);
+
+    cart.getItems().add(cartItem);
+    cartService.save(cart);
+    return ResponseEntity.ok(cartItem);
   }
 }
