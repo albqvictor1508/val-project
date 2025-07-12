@@ -30,7 +30,7 @@ public class CartController {
 
   @PostMapping
   public Cart save(@Valid @RequestBody final CartRequest cartBody) {
-    Cart cart = cartService.findById(cartBody.getUserId());
+    Cart cart = cartService.findByUserId(cartBody.getUserId());
     return cartService.save(cart);
   }
 

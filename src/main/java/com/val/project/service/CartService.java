@@ -16,6 +16,11 @@ public class CartService {
   @Autowired
   private CartItemService cartItemService;
 
+  public Cart findByUserId(Long userId) {
+    return cartRepository.findByUserId(userId)
+        .orElseThrow(() -> new RuntimeException("The cart with userId: %s not exists".formatted(userId)));
+  }
+
   public Cart save(Cart cart) {
     return cartRepository.save(cart);
   }
