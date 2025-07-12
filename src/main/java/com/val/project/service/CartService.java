@@ -1,18 +1,18 @@
 package com.val.project.service;
 
 import java.util.List;
-import com.val.project.entity.CartItem;
-import com.val.project.entity.Cart;
-import com.val.project.repository.CartRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.val.project.entity.Cart;
+import com.val.project.entity.CartItem;
+import com.val.project.repository.CartRepository;
 
 @Service
 public class CartService {
   @Autowired
   private CartRepository cartRepository;
-
   @Autowired
   private CartItemService cartItemService;
 
