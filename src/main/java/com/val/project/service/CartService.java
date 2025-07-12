@@ -32,6 +32,7 @@ public class CartService {
 
   public void addItem(CartItem item) {
     Cart cart = this.findById(item.getCart().getId());
+
     if (cartItemService.existsById(item.getId())) {
       item.setQuantity(item.getQuantity() + 1);
       cartRepository.save(cart);
@@ -50,6 +51,5 @@ public class CartService {
     }
     cart.getItems().remove(item);
     cartRepository.save(cart);
-
   }
 }

@@ -1,6 +1,9 @@
 package com.val.project.entity;
 
 import java.util.List;
+
+import com.val.project.types.CartStatusEnum;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,8 +34,9 @@ public class Cart {
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
   // WARN: BOM MUDAR ISSO PRA UM ENUM
+  @Enumerated(EnumType.STRING)
   @Column
-  private String status;
+  private CartStatusEnum status;
 
   @OneToMany(mappedBy = "cart")
   private List<CartItem> items;

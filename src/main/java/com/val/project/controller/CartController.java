@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/carts")
 public class CartController {
   @Autowired
   private CartService cartService;
@@ -47,7 +47,7 @@ public class CartController {
   }
 
   // TODO: jogar isso aqui no service
-  @PostMapping("/items/{cartItemId}")
+  @PostMapping("/{cartId}/items")
   public ResponseEntity<?> addItem(@PathVariable final Long cartItemId) {
     CartItem cartItem = cartItemRepository.findById(cartItemId)
         .orElseThrow(() -> new RuntimeException("Carth  item with id: %s not exists".formatted(cartItemId)));
