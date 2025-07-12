@@ -13,7 +13,7 @@ public class OrderService {
     return orderRepository.save(o);
   }
 
-  public void deleteOrder(Long orderId) {
+  public void delete(Long orderId) {
     orderRepository.deleteById(orderId);
   }
 }
