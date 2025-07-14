@@ -40,6 +40,12 @@ public class ProductService {
     return productRepository.existsById(productId);
   }
 
+  // WARN: SQL (LIKE) pra achar produto
+  public List<Product> findByNameLike(String productName) {
+    // TODO: Security anti SQL Injection
+    return findByNameLike(productName);
+  }
+
   public List<ProductResponse> findAll() {
     final List<ProductResponse> response = new ArrayList<>();
     final List<Product> productList = productRepository.findAll();
