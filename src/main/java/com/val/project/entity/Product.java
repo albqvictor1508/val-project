@@ -49,7 +49,9 @@ public class Product {
   private Double weight;
   @Column(name = "available_quantity")
   private Integer availableQuantity;
-  private String producer; // TODO: isso pode ser uma tabela aparte pra padronização
+  @ManyToOne
+  @JoinColumn(name = "producer_id")
+  private Producer producer;
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonManagedReference
