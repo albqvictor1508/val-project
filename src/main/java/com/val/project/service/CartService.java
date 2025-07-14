@@ -81,12 +81,15 @@ public class CartService {
     if (existingItemOptional.isPresent()) {
       cartItem = existingItemOptional.get();
       cartItem.setQuantity(cartItem.getQuantity() + request.getQuantity());
+      cartItem.setUpdatedAt(LocalDateTime.now());
     } else {
       cartItem = new CartItem();
       cartItem.setCart(cart);
       cartItem.setProduct(product);
       cartItem.setQuantity(request.getQuantity());
-      cartItem.setUnitPrice(product.getPrice()); // Use Double directly
+      cartItem.setUnitPrice(product.getPrice());
+      cartItem.setCreatedAt(LocalDateTime.now());
+      cartItem.setUpdatedAt(LocalDateTime.now());
       cart.getItems().add(cartItem);
     }
 
