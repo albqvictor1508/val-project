@@ -40,10 +40,10 @@ public class ProductService {
     return productRepository.existsById(productId);
   }
 
-  // WARN: SQL (LIKE) pra achar produto
-  public List<Product> findByNameLike(String productName) {
-    // TODO: Security anti SQL Injection
-    return findByNameLike(productName);
+  // WARN: SQL (LIKE) pra achar produto com case-insensitive e ignorando acento
+  // gráfico
+  public List<Product> findByNameContainingIgnoreCase(String productName) {
+    return productRepository.findByNameContainingIgnoreCase(productName);
   }
 
   public List<ProductResponse> findAll() {

@@ -4,9 +4,6 @@ services:
     ports:
       - "6005:5432"
     volumes:
-      - val-project-pg:/var/lib/postgresql/data
+      - ./docker/setup.sql:/entrypoint-init-db.d/setup.sql
     env_file:
       - .env
-
-volumes:
-  val-project-pg:
