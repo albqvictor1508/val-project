@@ -12,7 +12,6 @@ import com.val.project.dto.cart.AddItemRequest;
 import com.val.project.entity.Cart;
 import com.val.project.entity.CartItem;
 import com.val.project.entity.Product;
-import com.val.project.repository.CartItemRepository;
 import com.val.project.entity.User;
 import com.val.project.repository.CartRepository;
 import com.val.project.repository.UserRepository;
@@ -23,7 +22,7 @@ public class CartService {
   @Autowired
   private CartRepository cartRepository;
   @Autowired
-  private CartItemRepository cartItemRepository;
+  private CartItemService cartItemService;
   @Autowired
   private ProductService productService;
   @Autowired
@@ -66,34 +65,13 @@ public class CartService {
     return cart.getItems();
   }
 
-  // TODO: REVISAR ISSO AQUI
   @Transactional
   public CartItem addItem(Long cartId, AddItemRequest request) {
     Cart cart = findById(cartId);
     Product product = productService.findById(request.getProductId());
+    Integer qtd = request.getQuantity();
 
-    Optional<CartItem> existingItemOptional = cart.getItems().stream()
-        .filter(item -> item.getProduct().getId().equals(request.getProductId()))
-        .findFirst();
-
-    // WARN: RETIRAR ESSE ELSE E USAR EARLY RETURN
-    CartItem cartItem;
-    if (existingItemOptional.isPresent()) {
-      cartItem = existingItemOptional.get();
-      cartItem.setQuantity(cartItem.getQuantity() + request.getQuantity());
-      cartItem.setUpdatedAt(LocalDateTime.now());
-    } else {
-      cartItem = new CartItem();
-      cartItem.setCart(cart);
-      cartItem.setProduct(product);
-      cartItem.setQuantity(request.getQuantity());
-      cartItem.setUnitPrice(product.getPrice());
-      cartItem.setCreatedAt(LocalDateTime.now());
-      cartItem.setUpdatedAt(LocalDateTime.now());
-      cart.getItems().add(cartItem);
-    }
-
-    cartItemRepository.save(cartItem);
+    CartItem cartItem = cartItemService.upsertCartItem(cart, product, qtd);
 
     // Recalculate total and update cart
     double total = cart.getItems().stream()

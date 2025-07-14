@@ -1,6 +1,9 @@
 package com.val.project.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.val.project.dto.cart.AddItemRequest;
 import com.val.project.dto.cart.CartRequest;
+import com.val.project.dto.cartItems.CartItemResponse;
 import com.val.project.entity.Cart;
 import com.val.project.entity.CartItem;
 import com.val.project.service.CartService;
@@ -42,14 +46,22 @@ public class CartController {
   }
 
   @GetMapping("/{cartId}/items")
-  public List<CartItem> getItemsById(@PathVariable final Long cartId) {
-    return cartService.getItemsById(cartId);
+  public Set<CartItemResponse> getItemsById(@PathVariable final Long cartId) {
+    Set<CartItemResponse> itemsResponse = new HashSet<CartItemResponse>();
+    List<CartItem> items = cartService.getItemsById(cartId);
+
+    for (CartItem item : items) {
+      itemsResponse.add(new CartItemResponse(item));
+    }
+
+    return itemsResponse;
   }
 
   @PostMapping("/{cartId}/items")
-  public ResponseEntity<CartItem> addItemToCart(@PathVariable final Long cartId,
+  public ResponseEntity<CartItemResponse> addItemToCart(@PathVariable final Long cartId,
       @Valid @RequestBody AddItemRequest request) {
     CartItem cartItem = cartService.addItem(cartId, request);
-    return ResponseEntity.ok(cartItem);
+
+    return ResponseEntity.ok(new CartItemResponse(cartItem));
   }
 }

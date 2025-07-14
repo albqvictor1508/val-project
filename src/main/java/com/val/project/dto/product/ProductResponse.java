@@ -10,6 +10,8 @@ import lombok.Getter;
 
 @Getter
 public class ProductResponse {
+  @NotNull
+  private Long id;
   @NotBlank
   @NotNull
   private String name;
@@ -26,6 +28,7 @@ public class ProductResponse {
   private LocalDateTime updatedAt;
 
   public ProductResponse(Product p) {
+    this.id = p.getId();
     this.name = p.getName();
     this.description = p.getDescription();
     this.price = p.getPrice();

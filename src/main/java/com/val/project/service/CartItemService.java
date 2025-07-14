@@ -1,9 +1,14 @@
 package com.val.project.service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.val.project.entity.Cart;
 import com.val.project.entity.CartItem;
+import com.val.project.entity.Product;
 import com.val.project.repository.CartItemRepository;
 
 @Service
@@ -11,20 +16,26 @@ public class CartItemService {
   @Autowired
   private CartItemRepository cartItemRepository;
 
-  public CartItem save(CartItem item) {
-    return cartItemRepository.save(item);
-  }
+  public CartItem upsertCartItem(Cart cart, Product product, Integer qtd) {
+    Optional<CartItem> existingItemOpt = cart.getItems().stream()
+        .filter(item -> item.getProduct().getId().equals(product.getId()))
+        .findFirst();
 
-  public void delete(Long cartItemId) {
-    cartItemRepository.deleteById(cartItemId);
-  }
+    if (existingItemOpt.isPresent()) {
+      CartItem item = existingItemOpt.get();
+      item.setQuantity(item.getQuantity() + qtd);
+      item.setUpdatedAt(LocalDateTime.now());
+      return cartItemRepository.save(item);
+    }
 
-  public CartItem findById(Long cartItemId) {
-    return cartItemRepository.findById(cartItemId)
-        .orElseThrow(() -> new RuntimeException("The cart item with id: %s not exists".formatted(cartItemId)));
-  }
-
-  public Boolean existsById(Long cartItemId) {
-    return cartItemRepository.existsById(cartItemId);
+    CartItem newItem = new CartItem();
+    newItem.setCart(cart);
+    newItem.setProduct(product);
+    newItem.setQuantity(qtd);
+    newItem.setUnitPrice(product.getPrice());
+    newItem.setCreatedAt(LocalDateTime.now());
+    newItem.setUpdatedAt(LocalDateTime.now());
+    cart.getItems().add(newItem);
+    return cartItemRepository.save(newItem);
   }
 }
