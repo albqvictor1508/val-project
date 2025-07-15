@@ -63,4 +63,11 @@ public class CartController {
 
     return ResponseEntity.ok(new CartItemResponse(cartItem));
   }
+
+  @PostMapping("/{cartId}/checkout")
+  public ResponseEntity<?> checkout(@PathVariable Long cartId) {
+    Cart cart = cartService.findById(cartId);
+    Double price = cart.getTotal();
+    return ResponseEntity.ok(cart);
+  }
 }
