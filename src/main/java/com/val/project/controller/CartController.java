@@ -19,7 +19,9 @@ import com.val.project.dto.cart.CartRequest;
 import com.val.project.dto.cartItems.CartItemResponse;
 import com.val.project.entity.Cart;
 import com.val.project.entity.CartItem;
+import com.val.project.entity.User;
 import com.val.project.service.CartService;
+import com.val.project.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -28,6 +30,8 @@ import jakarta.validation.Valid;
 public class CartController {
   @Autowired
   private CartService cartService;
+  @Autowired
+  private UserService userService;
 
   @PostMapping
   public Cart createOrGetCart(@Valid @RequestBody final CartRequest cartBody) {
@@ -67,7 +71,10 @@ public class CartController {
   @PostMapping("/{cartId}/checkout")
   public ResponseEntity<?> checkout(@PathVariable Long cartId) {
     Cart cart = cartService.findById(cartId);
+    Long userId = cart.getUser().getId();
+    User user = userService.findById(userId);
     Double price = cart.getTotal();
+
     return ResponseEntity.ok(cart);
   }
 }
