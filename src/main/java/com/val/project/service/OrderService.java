@@ -26,6 +26,10 @@ public class OrderService {
   @Autowired
   private AddressService addressService;
 
+  public Order save(Order o) {
+    return orderRepository.save(o);
+  }
+
   @Transactional
   public OrderResponse checkout(Long cartId, Long shippingAddressId) {
     Cart cart = cartService.findById(cartId);

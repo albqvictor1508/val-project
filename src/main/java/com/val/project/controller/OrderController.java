@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.val.project.dto.order.OrderRequest;
 import com.val.project.dto.order.OrderResponse;
+import com.val.project.entity.Order;
 import com.val.project.service.OrderService;
 
 import jakarta.validation.Valid;
@@ -21,15 +21,15 @@ public class OrderController {
   @Autowired
   private OrderService orderService;
 
-  @PostMapping("/checkout")
-  public ResponseEntity<OrderResponse> checkout(@Valid @RequestBody OrderRequest orderRequest) {
-    OrderResponse orderResponse = orderService.checkout(orderRequest);
-    return ResponseEntity.ok(orderResponse);
-  }
-
   @DeleteMapping("/{orderId}")
   public ResponseEntity<?> deleteOrder(@PathVariable Long orderId) {
     orderService.delete(orderId);
     return ResponseEntity.status(200).build();
+  }
+
+  @PostMapping("/orders")
+  public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody Order o) {
+    Order order = orderService.save(o);
+    return ResponseEntity.ok(new OrderResponse(order));
   }
 }
