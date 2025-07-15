@@ -1,6 +1,7 @@
 package com.val.project.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.val.project.entity.Address;
 import com.val.project.entity.Cart;
 import com.val.project.entity.Order;
 import com.val.project.entity.OrderItem;
+import com.val.project.exception.AddressIdNotFoundException;
 import com.val.project.repository.OrderRepository;
 import com.val.project.types.CartStatusEnum;
 import com.val.project.types.OrderStatus;
@@ -39,10 +41,19 @@ public class OrderService {
       throw new RuntimeException("You cant do it with a empty cart");
 
     Address shippingAddress = addressService.findById(shippingAddressId);
+    List<Address> userAddresses = cart.getUser().getAddresses();
 
+    Optional<Address> addressOpt = userAddresses.stream()
+        .filter(address -> address.getId().equals(shippingAddress.getId()))
+        .findFirst();
+
+    if (!addressOpt.isPresent())
+      throw new AddressIdNotFoundException("The address with id: %s not exists".formatted(shippingAddressId));
+
+    Address address = addressOpt.get();
     Order order = new Order();
     order.setUser(cart.getUser());
-    order.setShippingAddress(shippingAddress);
+    order.setShippingAddress(address);
     order.setStatus(OrderStatus.PENDING);
     order.setTotalPrice(cart.getTotal());
 
