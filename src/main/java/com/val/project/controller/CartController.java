@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.val.project.dto.cart.AddItemRequest;
 import com.val.project.dto.cart.CartRequest;
+import com.val.project.dto.cart.CheckoutRequest;
 import com.val.project.dto.cartItems.CartItemResponse;
+import com.val.project.dto.order.OrderResponse;
 import com.val.project.entity.Cart;
 import com.val.project.entity.CartItem;
+import com.val.project.entity.Order;
 import com.val.project.entity.User;
 import com.val.project.service.CartService;
 import com.val.project.service.UserService;
@@ -30,6 +33,8 @@ import jakarta.validation.Valid;
 public class CartController {
   @Autowired
   private CartService cartService;
+  @Autowired
+  private OrderService orderService;
   @Autowired
   private UserService userService;
 
@@ -68,13 +73,11 @@ public class CartController {
     return ResponseEntity.ok(new CartItemResponse(cartItem));
   }
 
-  @PostMapping("/{cartId}/checkout")
-  public ResponseEntity<?> checkout(@PathVariable Long cartId) {
-    Cart cart = cartService.findById(cartId);
-    Long userId = cart.getUser().getId();
-    User user = userService.findById(userId);
-    Double price = cart.getTotal();
+  // FUI NA RUA!!!!
 
-    return ResponseEntity.ok(cart);
+  @PostMapping("/{cartId}/checkout")
+  public ResponseEntity<OrderResponse> checkout(@PathVariable Long cartId, @Valid @RequestBody CheckoutRequest request) {
+    OrderResponse orderResponse = orderService.checkout(cartId, request.getShippingAddressId());
+    return ResponseEntity.ok(orderResponse);
   }
 }

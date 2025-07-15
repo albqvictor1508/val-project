@@ -4,6 +4,7 @@ services:
     ports:
       - "6005:5432"
     volumes:
-      - ./docker/setup.sql:/entrypoint-init-db.d/setup.sql
+      - ./docker/setup.sql:/docker-entrypoint-initdb.d/1-setup.sql
+      - ./docker/recreate_order_items.sql:/docker-entrypoint-initdb.d/2-recreate_order_items.sql
     env_file:
       - .env

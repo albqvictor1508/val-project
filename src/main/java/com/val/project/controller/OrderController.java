@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.val.project.entity.Order;
+import com.val.project.dto.order.OrderRequest;
+import com.val.project.dto.order.OrderResponse;
 import com.val.project.service.OrderService;
 
 import jakarta.validation.Valid;
@@ -20,11 +21,10 @@ public class OrderController {
   @Autowired
   private OrderService orderService;
 
-  // TODO: CRIAR O ORDER QUANDO O CHECKOUT FOR FEITO, E CRIAR UM DTO PRA ISSO
-  @PostMapping
-  public ResponseEntity<Order> createOrder(@Valid @RequestBody Order o) {
-    orderService.createOrder(o);
-    return ResponseEntity.ok(o);
+  @PostMapping("/checkout")
+  public ResponseEntity<OrderResponse> checkout(@Valid @RequestBody OrderRequest orderRequest) {
+    OrderResponse orderResponse = orderService.checkout(orderRequest);
+    return ResponseEntity.ok(orderResponse);
   }
 
   @DeleteMapping("/{orderId}")
