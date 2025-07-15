@@ -73,8 +73,7 @@ public class CartService {
 
     CartItem cartItem = cartItemService.upsertCartItem(cart, product, qtd);
 
-    // Recalculate total and update cart
-    double total = cart.getItems().stream()
+    Double total = cart.getItems().stream()
         .mapToDouble(item -> item.getUnitPrice() * item.getQuantity())
         .sum();
     cart.setTotal(total);
