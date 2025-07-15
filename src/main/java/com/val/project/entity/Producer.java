@@ -27,6 +27,7 @@ public class Producer {
   private Long id;
   @Column(length = 80, nullable = false)
   private String name;
+  @Column(length = 25, unique = true)
   private String cnpj;
   @OneToMany(mappedBy = "producer", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Product> products;
