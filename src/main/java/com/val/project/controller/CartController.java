@@ -21,9 +21,8 @@ import com.val.project.dto.cartItems.CartItemResponse;
 import com.val.project.dto.order.OrderResponse;
 import com.val.project.entity.Cart;
 import com.val.project.entity.CartItem;
-import com.val.project.entity.Order;
-import com.val.project.entity.User;
 import com.val.project.service.CartService;
+import com.val.project.service.OrderService;
 import com.val.project.service.UserService;
 
 import jakarta.validation.Valid;
@@ -73,10 +72,9 @@ public class CartController {
     return ResponseEntity.ok(new CartItemResponse(cartItem));
   }
 
-  // FUI NA RUA!!!!
-
   @PostMapping("/{cartId}/checkout")
-  public ResponseEntity<OrderResponse> checkout(@PathVariable Long cartId, @Valid @RequestBody CheckoutRequest request) {
+  public ResponseEntity<OrderResponse> checkout(@PathVariable Long cartId,
+      @Valid @RequestBody CheckoutRequest request) {
     OrderResponse orderResponse = orderService.checkout(cartId, request.getShippingAddressId());
     return ResponseEntity.ok(orderResponse);
   }

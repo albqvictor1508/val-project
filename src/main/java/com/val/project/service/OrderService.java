@@ -33,6 +33,11 @@ public class OrderService {
   @Transactional
   public OrderResponse checkout(Long cartId, Long shippingAddressId) {
     Cart cart = cartService.findById(cartId);
+
+    // WARN: better error handling here!
+    if (cart.getItems().isEmpty())
+      throw new RuntimeException("You cant do it with a empty cart");
+
     Address shippingAddress = addressService.findById(shippingAddressId);
 
     Order order = new Order();
