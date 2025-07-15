@@ -16,4 +16,9 @@ public class AddressService {
     userService.findById(a.getUser().getId());
     return addressRepository.save(a);
   }
+
+  public Address findById(Long id) {
+    return addressRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Address with id: %s not exists".formatted(id)));
+  }
 }

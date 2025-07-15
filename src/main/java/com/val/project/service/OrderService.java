@@ -1,18 +1,20 @@
 package com.val.project.service;
 
-import com.val.project.dto.order.OrderRequest;
-import com.val.project.dto.order.OrderResponse;
-import com.val.project.entity.Cart;
-import com.val.project.entity.Order;
-import com.val.project.entity.OrderItem;
-import com.val.project.repository.OrderRepository;
-import com.val.project.types.OrderStatus;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.val.project.dto.order.OrderResponse;
+import com.val.project.entity.Address;
+import com.val.project.entity.Cart;
+import com.val.project.entity.Order;
+import com.val.project.entity.OrderItem;
+import com.val.project.repository.OrderRepository;
+import com.val.project.types.CartStatusEnum;
+import com.val.project.types.OrderStatus;
 
 @Service
 public class OrderService {
@@ -21,13 +23,17 @@ public class OrderService {
   @Autowired
   private CartService cartService;
 
+  @Autowired
+  private AddressService addressService;
+
   @Transactional
-  public OrderResponse checkout(OrderRequest orderRequest) {
-    Cart cart = cartService.findByUserId(orderRequest.getUser().getId());
+  public OrderResponse checkout(Long cartId, Long shippingAddressId) {
+    Cart cart = cartService.findById(cartId);
+    Address shippingAddress = addressService.findById(shippingAddressId);
 
     Order order = new Order();
-    order.setUser(orderRequest.getUser());
-    order.setShippingAddress(orderRequest.getShippingAddress());
+    order.setUser(cart.getUser());
+    order.setShippingAddress(shippingAddress);
     order.setStatus(OrderStatus.PENDING);
     order.setTotalPrice(cart.getTotal());
 
@@ -41,17 +47,14 @@ public class OrderService {
           return orderItem;
         })
         .collect(Collectors.toList());
+
     order.setOrderItems(orderItems);
     orderRepository.save(order);
-    cartService.deleteCart(cart.getId());
 
-    return new OrderResponse(
-        order.getId(),
-        order.getUser(),
-        order.getShippingAddress(),
-        order.getStatus(),
-        order.getTotalPrice(),
-        order.getCreatedAt());
+    cart.setStatus(CartStatusEnum.CLOSED);
+    cartService.save(cart);
+
+    return new OrderResponse(order);
   }
 
   public void delete(Long orderId) {

@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CartStatusEnum {
   OPEN("open"),
-  FINALIZED("finalized");
+  FINALIZED("finalized"),
+  CLOSED("closed");
 
   private final String label;
 }
